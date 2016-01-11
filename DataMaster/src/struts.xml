@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+  
+   <package name="user" extends="struts-default" namespace="/">
+   
+     
+      <action name="login" 
+            class="com.datamaster.action.LoginAction" 
+            method="execute">
+            <result name="success">/pages/dashboard.jsp</result>
+            <result name="error">/index.jsp</result>
+      </action>
+      
+     <action name="loadModule" 
+            class="com.datamaster.action.LoadModule" 
+            method="execute">
+            <result name="electronics">/pages/electronicsTask.jsp</result>
+            <result name="others">/pages/othersTask.jsp</result>
+      </action>
+      
+       <action name="elecTaskScheduler" 
+            class="com.datamaster.action.ElecTaskScheduler" 
+            method="execute">
+            <result name="electronicsDataUpdate">/pages/electronics/electronicsDataUpdate.jsp</result>
+            <result name="mspProductUpdate">/pages/electronics/MSPProductUpdate.jsp</result>
+            <result name="specUpdate">/pages/electronics/specUpdate.jsp</result>
+            
+      </action>
+   </package>
+  
+
+</struts>
