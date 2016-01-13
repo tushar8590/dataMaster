@@ -7,7 +7,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Electronics Data Update</title>
 </head>
+<script src="http://code.jquery.com/jquery-1.10.2.js"
+	type="text/javascript"></script>
+	<script>
+	$(document).ready(function() {
+      //  $('#userName').blur(function(event) {
+               
+                $.get('GetUserServlet', {
+                }, function(responseText) {
+                        $('#ajaxGetUserServletResponse').text(responseText);
+             //   });
+        });
+});
+	</script>
 <body>
    <s:property value="message" />
+   <div id="ajaxGetUserServletResponse">
+   </div>
 </body>
 </html>

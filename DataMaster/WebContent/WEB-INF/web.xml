@@ -5,7 +5,7 @@
    
     <servlet>
         <servlet-name>ajaxServlet</servlet-name>
-        <servlet-class>com.datamaster.servlet</servlet-class>
+        <servlet-class>com.datamaster.servlet.JobStatusServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ajaxServlet</servlet-name>
