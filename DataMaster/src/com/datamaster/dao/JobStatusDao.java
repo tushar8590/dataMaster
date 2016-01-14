@@ -8,12 +8,17 @@ import com.datamaster.model.JobStatus;
 public class JobStatusDao {
     
     private JobStatus jobStatus;
-    public List<JobStatus> getjobStatus(String taskName){
+    private JDBCConnection conn;
+    public JobStatusDao(){
+    	
+    }
+    public JobStatus getjobStatus(String taskName){
         jobStatus = new JobStatus();
         jobStatus.setJobName("My Job");
         jobStatus.setJobStatus("Runing");
-        List<JobStatus> list = new ArrayList<>();
-        list.add(jobStatus);
-        return list;
+        //List<JobStatus> list = new ArrayList<>();
+        //list.add(jobStatus);
+        //return list;
+        return jobStatus;
     }
 }

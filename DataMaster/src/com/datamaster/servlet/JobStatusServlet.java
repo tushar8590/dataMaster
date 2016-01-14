@@ -24,11 +24,13 @@ public class JobStatusServlet extends HttpServlet {
     JobStatusDao statusDao = new JobStatusDao();
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<JobStatus> list= statusDao.getjobStatus("");
-        JSONArray array = new JSONArray(list);
+      //  List<JobStatus> list= statusDao.getjobStatus("");
+    	JobStatus status = statusDao.getjobStatus("");
+        //JSONArray array = new JSONArray(list);
         JSONObject obj = new JSONObject();
         try {
-            obj.put("key", array);
+            obj.put("jobName", status.getJobName());
+            obj.put("jobStatus", status.getJobStatus());
         }
         catch (JSONException e) {
             // TODO Auto-generated catch block

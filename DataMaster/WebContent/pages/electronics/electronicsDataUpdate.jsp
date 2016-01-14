@@ -11,18 +11,37 @@
 	type="text/javascript"></script>
 	<script>
 	$(document).ready(function() {
-      //  $('#userName').blur(function(event) {
+              writeResponse();
+                $("#refresh").click(function(){
+                	writeResponse();
+                });
                
-                $.get('GetUserServlet', {
-                }, function(responseText) {
-                        $('#ajaxGetUserServletResponse').text(responseText);
-             //   });
-        });
+               function writeResponse(){
+            	   $.get('/DataMaster/status/', {
+                   }, function(responseText) {
+                   	$('#jobName').text(responseText.jobName);
+                       $('#jobStatus').text(responseText.jobStatus);
+                      });
+               }
+                
 });
 	</script>
 <body>
    <s:property value="message" />
-   <div id="ajaxGetUserServletResponse">
+   <table border = "1px">
+       <tr>
+           <td>JobName</td><td>JobStatus</td>
+       </tr>
+       <tr>
+           <td><div id="jobName"></div></td>
+           <td><div id="jobStatus"></div></td>
+       </tr>
+   </table>
+   
+   
+   <div id="refresh">
+        <input type="button" value = "Refresh" />
    </div>
+   
 </body>
 </html>
