@@ -13,11 +13,11 @@
 	$(document).ready(function() {
       //  $('#userName').blur(function(event) {
                
-                $.get('GetUserServlet', {
+                $.get('/DataMaster/status/JobStatusServlet/', {
                 }, function(responseText) {
-                        $('#ajaxGetUserServletResponse').text(responseText);
-             //   });
-        });
+        	 
+                        $('#ajaxGetUserServletResponse').text(responseText.key.jobStatus);
+                   });
 });
 	</script>
 <body>

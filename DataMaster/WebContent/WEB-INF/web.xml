@@ -9,7 +9,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ajaxServlet</servlet-name>
-        <url-pattern>/status/ajax/*</url-pattern>
+        <url-pattern>/status/*</url-pattern>
     </servlet-mapping>
     <filter>
         <filter-name>struts2</filter-name>
