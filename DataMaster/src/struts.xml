@@ -3,7 +3,7 @@
    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
    "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-<constant name="struts.action.excludePattern" value="/JobStatusServlet"/>
+<constant name="struts.action.excludePattern" value="/status/*?"/>
 
    <package name="user" extends="struts-default" namespace="/">
    
