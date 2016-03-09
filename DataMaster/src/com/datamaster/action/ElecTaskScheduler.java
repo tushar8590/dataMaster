@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.quartz.SchedulerException;
 
+import com.datamaster.bl.MSPUrlExtractor;
 import com.datamaster.dao.ELectronicsDataDao;
 import com.datamaster.scheduler.jobs.ElectronicsQuartzJobScheduler;
 import com.opensymphony.xwork2.ActionSupport;
@@ -31,8 +32,16 @@ public class ElecTaskScheduler extends ActionSupport implements ServletRequestAw
             setMessage("Running Data Update Job");
             return "electronicsDataUpdate";
         }
-        else if(request.getParameter("choice").equals("mpu"))
+        else if(request.getParameter("choice").equals("mpu")){
+        	String arr[] = request.getParameterValues("catSelected");
+        	MSPUrlExtractor msp = new MSPUrlExtractor();
+        	msp.processData(arr);
+        	for(String s:arr){
+        		System.out.println(s);
+        	}
+        	//System.out.println();
             return "mspProductUpdate";
+        }
         else
             return "specUpdate";
     }

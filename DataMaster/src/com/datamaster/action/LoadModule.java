@@ -7,21 +7,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 
+import com.datamaster.dao.ELectronicsDataDao;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class LoadModule extends ActionSupport implements ServletRequestAware {
     private HttpServletRequest request;
-    
+    private ELectronicsDataDao electronicsData;
     private List<String> categoryList;
     public String execute(){
+    	electronicsData = new ELectronicsDataDao();
         if(request.getParameter("choice").equals("electronics")){
-        	categoryList = new ArrayList<String>();
-        	categoryList.add("Abc");
-        	categoryList.add("CDF");
-        	categoryList.add("GGF");
-        	categoryList.add("JJH");
-        	categoryList.add("TTT");
-        	categoryList.add("KKK");
+        	categoryList  = electronicsData.getCategories();
         	
             return "electronics";
         }else
@@ -33,4 +29,12 @@ public class LoadModule extends ActionSupport implements ServletRequestAware {
         request = arg0;
         
     }
+
+	public List<String> getCategoryList() {
+		return categoryList;
+	}
+
+	public void setCategoryList(List<String> categoryList) {
+		this.categoryList = categoryList;
+	}
 }

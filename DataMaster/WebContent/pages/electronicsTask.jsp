@@ -34,6 +34,7 @@
 <title>Electronics TAsks</title>
 </head>
 <body>
+
 	<img id="top" src="./images/top.png" alt="">
 	<div id="form_container">
 	
@@ -61,26 +62,26 @@
              <input id="choice" name="choice" class="element radio" type="radio" value="edu" />
 	         <label class="choice" for="electronics">Electronics Data Update</label>
 	         <input id="saveForm" class="button_text" type="submit" name="submit" value="Start Task" />
-	         
 	       </p>
           </form>	
          </div>
 			
          <div id = "tabs-3">
-          
-            <form id="form_1089583" class="appnitro"  method="post" action="elecTaskScheduler">
+          <br /><br /><br />
+            <form id="form_1089583" class="appnitro"  method="get" action="elecTaskScheduler">
             <p>
-           	<input id="choice" name="choice" class="element radio" type="radio" value="mpu" />
-			<label class="choice" for="others">MSP Product Update</label>
-	         <input id="saveForm" class="button_text" type="submit" name="submit" value="Start Task" />
-	         <select name="cars" multiple width="200px"  class="element radio">
-				  <option value="volvo" class="element radio">Volvo</option>
-				  <option value="saab" class="element radio">Saab</option>
-				  <option value="opel" class="element radio">Opel</option>
-				  <option value="audi"class="element radio" >Audi</option>
-				</select>
-	         
-	       </p>
+            <table>
+               <tr>
+                 <td><input id="choice" name="choice" class="element radio" type="hidden" value="mpu" /></td>
+                 <td><label class="choice" for="others">Select category </label> </td>
+               </tr>
+               <tr>
+            	  <td><s:select list="categoryList"  multiple="true"  width="400px"   class="element" name="catSelected"></s:select></td>     
+               </tr>
+               <tr><td><input id="saveForm" class="button_text" type="submit" name="submit" value="Start Task" /></td></tr>
+            </table>
+           	
+			
           </form>
           
          </div>
