@@ -73,11 +73,11 @@
            	<input id="choice" name="choice" class="element radio" type="radio" value="mpu" />
 			<label class="choice" for="others">MSP Product Update</label>
 	         <input id="saveForm" class="button_text" type="submit" name="submit" value="Start Task" />
-	         <select name="cars" multiple width="200px" class="button_text">
-				  <option value="volvo">Volvo</option>
-				  <option value="saab">Saab</option>
-				  <option value="opel">Opel</option>
-				  <option value="audi">Audi</option>
+	         <select name="cars" multiple width="200px"  class="element radio">
+				  <option value="volvo" class="element radio">Volvo</option>
+				  <option value="saab" class="element radio">Saab</option>
+				  <option value="opel" class="element radio">Opel</option>
+				  <option value="audi"class="element radio" >Audi</option>
 				</select>
 	         
 	       </p>
