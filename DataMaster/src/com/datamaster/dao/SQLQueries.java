@@ -100,6 +100,6 @@ public class SQLQueries {
 	   public static String fetchAllUrl= "select url from msp_product_url";
 
 	public static String insertJobDetail = "insert into job_map(job_name,job_status,date_triggered,completion_status) values(?,?,?,?)";
-	public static String getCategories  = "SELECT DISTINCT menu_level1 FROM new_menu";
+	public static String getCategories  = "SELECT DISTINCT section  FROM new_menu ORDER BY section";
 	
 }

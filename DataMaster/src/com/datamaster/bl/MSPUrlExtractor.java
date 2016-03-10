@@ -31,6 +31,14 @@ public class MSPUrlExtractor {
 	static Map<String,List<String>> urlMap;
 	
 	
+	public static void main(String ar[]){
+	    MSPUrlExtractor obj = new MSPUrlExtractor();
+	    String[] cats = new String[1];
+	    cats[0] = "mobiles";
+	    obj.processData(cats);
+	    
+	}
+	
 	public  void processData(String cats[]) {
 		JDBCConnection conn1 = JDBCConnection.getInstance();
 		MSPUrlExtractor msp = new MSPUrlExtractor();
@@ -38,8 +46,8 @@ public class MSPUrlExtractor {
 		  List<Future<String>> list = new ArrayList<Future<String>>();
 		urlMap = new HashMap<String,List<String>>();
 		
-		String fetchUrlQuery = SQLQueries.fetchAllUrl;
-		fetchUrlQuery = fetchUrlQuery + " where menu_level1 in (";
+		String fetchUrlQuery = SQLQueries.fetchAllUrl; // from msp_product_url
+		fetchUrlQuery = fetchUrlQuery + " where section in (";
 		for(String str : cats){ 
 			fetchUrlQuery = fetchUrlQuery + "'"+str + "',";
 		}
@@ -61,14 +69,24 @@ public class MSPUrlExtractor {
 			}
 		}
 		
-		String fetchQuery = SQLQueries.fetchMainCategoryMap;
+		String fetchQuery = SQLQueries.fetchMainCategoryMap;  // from category_main_url  msp
+	
+		fetchQuery = fetchQuery + " where section in (";
+        for(String str : cats){ 
+            fetchQuery = fetchQuery + "'"+str + "',";
+        }
+        fetchQuery = fetchQuery.substring(0, fetchQuery.lastIndexOf(","));
+        fetchQuery = fetchQuery + ")";
+        System.out.println(fetchQuery);
+		
+		
 		
 		ResultSet rs = conn1.executeQuery(fetchQuery,null);
 		Map<String,List<String>> urlMap = new HashMap<String,List<String>>();
 		if(rs!=null){
 			try {
 				while(rs.next()){
-					String cat = rs.getString("category");
+					String cat = rs.getString("section");
 					
 					
 					String first_url = rs.getString("first_page_url");
@@ -122,12 +140,20 @@ public class MSPUrlExtractor {
 	   // get the base url data  
 	        try{
 	        driver.get(baseUrl);
-	        for(int i = 4 ;i<=51;i++){
-	        	if(section.equals("tablets"))
+	        System.out.println(baseUrl);
+	        for(int i = 1 ;i<=51;i++){
+	                                          
+	            
+	        	if(driver.findElements(By.xpath("/html/body/div[4]/div[3]/div[1]/div[5]/div[2]/div[1]/div["+i+"]/div[2]/a")).size() != 0)
 	        		productUrl = driver.findElement(By.xpath("/html/body/div[4]/div[3]/div[1]/div[5]/div[2]/div[1]/div["+i+"]/div[2]/a")).getAttribute("href");
-	        	else
-	                productUrl = driver.findElement(By.xpath("/html/body/div[4]/div[3]/div[1]/div[3]/div[2]/div[1]/div["+i+"]/div[2]/a")).getAttribute("href");
 	        	
+	        	else if(driver.findElements(By.xpath("/html/body/div[4]/div[3]/div[1]/div[3]/div[2]/div[1]/div["+i+"]/div[2]/a")).size() != 0)
+	                
+	        	    productUrl = driver.findElement(By.xpath("/html/body/div[4]/div[3]/div[1]/div[3]/div[2]/div[1]/div["+i+"]/div[2]/a")).getAttribute("href");
+	        	
+	        	else
+	        	    productUrl = driver.findElement(By.xpath("/html/body/div[4]/div[3]/div[1]/div[4]/div[2]/div[1]/div["+i+"]/div[2]/a")).getAttribute("href");
+	        	    
 	        	if(!allExistingUrl.contains(productUrl))
 	            this.saveData(productUrl, section);
 	        }
@@ -137,7 +163,7 @@ public class MSPUrlExtractor {
 	  for(int j = 2;j<=limit;j++){
 		 
 		  driver.get(otherUrls+j+".html");
-	        for(int i = 4 ;i<=51;i++){
+	        for(int i = 1 ;i<=51;i++){
 	        	if(section.equals("tablets"))
 	        		productUrl = driver.findElement(By.xpath("/html/body/div[4]/div[3]/div[1]/div[5]/div[2]/div[1]/div["+i+"]/div[2]/a")).getAttribute("href");
 	        	else
