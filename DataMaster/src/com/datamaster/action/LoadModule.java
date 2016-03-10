@@ -1,17 +1,26 @@
 package com.datamaster.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 
+import com.datamaster.dao.ELectronicsDataDao;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class LoadModule extends ActionSupport implements ServletRequestAware {
     private HttpServletRequest request;
+    private ELectronicsDataDao electronicsData;
+    private List<String> categoryList;
     public String execute(){
-        if(request.getParameter("choice").equals("electronics"))
+    	electronicsData = new ELectronicsDataDao();
+        if(request.getParameter("choice").equals("electronics")){
+        	categoryList  = electronicsData.getCategories();
+        	
             return "electronics";
-        else
+        }else
             return "others";
     }
 
@@ -20,4 +29,12 @@ public class LoadModule extends ActionSupport implements ServletRequestAware {
         request = arg0;
         
     }
+
+	public List<String> getCategoryList() {
+		return categoryList;
+	}
+
+	public void setCategoryList(List<String> categoryList) {
+		this.categoryList = categoryList;
+	}
 }
