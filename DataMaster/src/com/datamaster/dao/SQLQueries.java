@@ -81,7 +81,7 @@ public class SQLQueries {
 	 // MSP related queries
 	   // Tushar 
 	   // 1sth October 2015
-	   public static String  insertMspProductUrl = "insert into msp_product_url(product_id,url,section,status) values(concat(LAST_INSERT_ID() + 1),?,?,?)";
+	   public static String  insertMspProductUrl = "insert into msp_product_url(product_id,url,section,status) values(concat(?,LAST_INSERT_ID() + 1),?,?,?)";
 	   public static String insertElectronicData = "insert into sp_electronics(model,price,url,image_url,section,mapped_flag) values()";
 	   public static String getMspUrls  = "SELECT * FROM `msp_product_url` -- where temp_flag = 'N' "; 
 	   public static String insertMspProductData = "insert into msp_electronics(product_id,section,model,url,price,image,cod,delivery_time,rating,emi_avaliable,temp_flag) values (?,?,?,?,?,?,?,?,?,?,'X')";
@@ -100,6 +100,6 @@ public class SQLQueries {
 	   public static String fetchAllUrl= "select url from msp_product_url";
 
 	public static String insertJobDetail = "insert into job_map(job_name,job_status,date_triggered,completion_status) values(?,?,?,?)";
-	public static String getCategories  = "SELECT DISTINCT menu_level1 FROM new_menu";
+	public static String getCategories  = "SELECT DISTINCT section  FROM new_menu ORDER BY section";
 	
 }
