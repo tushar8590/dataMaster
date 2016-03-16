@@ -16,13 +16,20 @@ import java.util.logging.Level;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.quartz.Job;
+import org.quartz.JobDataMap;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 
 import com.datamaster.dao.JDBCConnection;
 import com.datamaster.dao.SQLQueries;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 
-public class MSPUrlExtractor {
-    
+public class MSPUrlExtractor implements Job{
+    String cats[];
+	private void setCats(String cats[]){
+		this.cats = cats;
+	}
     static {
         java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(Level.OFF);
         System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
@@ -32,16 +39,19 @@ public class MSPUrlExtractor {
     static boolean isRunning = false;
     
     public static void main(String ar[]) {
-        MSPUrlExtractor obj = new MSPUrlExtractor();
+        
         String[] cats = new String[1];
         cats[0] = "mobiles";
-        obj.processData(cats); 
+        MSPUrlExtractor obj = new MSPUrlExtractor();
+        obj.setCats(cats);
+        
+        obj.processData(); 
         
     }
     
-    public void processData(String cats[]) {
+    public void processData() {
         JDBCConnection conn1 = JDBCConnection.getInstance();
-        MSPUrlExtractor msp = new MSPUrlExtractor();
+     //   MSPUrlExtractor msp = new MSPUrlExtractor();
         ExecutorService executor = Executors.newFixedThreadPool(3);
         List<Future<String>> list = new ArrayList<Future<String>>();
         urlMap = new HashMap<String, List<String>>();
@@ -100,7 +110,7 @@ public class MSPUrlExtractor {
         }
         
         urlMap.forEach((k, v) -> {
-            Callable<String> callable = msp.new DataExtractor(v.get(0), v.get(1), v.get(2), k, productUrl);
+            Callable<String> callable = this.new DataExtractor(v.get(0), v.get(1), v.get(2), k, productUrl);
             Future<String> future = executor.submit(callable);
             // add Future to the list, we can get return value using Future
             list.add(future);
@@ -209,4 +219,13 @@ public class MSPUrlExtractor {
         }
         
     }
+
+	@Override
+	public void execute(JobExecutionContext context) throws JobExecutionException {
+		System.out.println("Scheduling Job");
+		JobDataMap dataMap = context.getJobDetail().getJobDataMap();
+		String cats[] =  (String[])dataMap.get("cats");
+		this.setCats(cats);
+		this.processData();
+	}
 }

@@ -19,29 +19,23 @@ public class ElecTaskScheduler extends ActionSupport implements ServletRequestAw
         ElectronicsQuartzJobScheduler jobSch  =  new ElectronicsQuartzJobScheduler();
 
         elecDao = new ELectronicsDataDao();
+        String arr[] = request.getParameterValues("catSelected");
         if(request.getParameter("choice").equals("edu")){
-            try {
-                
-                elecDao.initiateJob("electronicsDataUpdate");
-                jobSch.execute();
-            }
-            catch (SchedulerException | InterruptedException e) {
-               
-                e.printStackTrace();
-            }
             
-            setMessage("Running Data Update Job");
-            return "electronicsDataUpdate";
+                elecDao.initiateJob("electronicsDataUpdate");
+                jobSch.startJob("demoJob",arr);            
+                setMessage("Running Data Update Job");
+                return "electronicsDataUpdate";
         }
         else if(request.getParameter("choice").equals("mpu")){
-        	String arr[] = request.getParameterValues("catSelected");
-        	MSPUrlExtractor msp = new MSPUrlExtractor();
-        	msp.processData(arr);
-        	for(String s:arr){
-        		System.out.println(s);
-        	}
-        	//System.out.println();
-            return "mspProductUpdate";
+	        //will uncomment later on	elecDao.initiateJob("mspUrlExtractorJob");
+	        //	
+	        	//MSPUrlExtractor msp = new MSPUrlExtractor(arr);
+	        	//msp.processData(arr);
+        	 jobSch.startJob("mspUrlExtractorJob",arr);            
+             setMessage("Running mspUrlExtractorJob Job");
+	        	//System.out.println();
+	            return "mspProductUpdate";
         }
         else
             return "specUpdate";

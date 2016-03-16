@@ -101,5 +101,6 @@ public class SQLQueries {
 
 	public static String insertJobDetail = "insert into job_map(job_name,job_status,date_triggered,completion_status) values(?,?,?,?)";
 	public static String getCategories  = "SELECT DISTINCT section  FROM new_menu ORDER BY section";
-	
+	   public static String updateMSPProductTableColumns = "update msp_product_url set model = SUBSTRING_INDEX(url,'/',-1),menu_level1 = ?,menu_level2 = ?,spec_url = REPLACE(REPLACE(CONCAT('http://www.mysmartprice.com/product/',SUBSTRING_INDEX(url,'/',-2),'-other#tab_spec'),'msf','mst'),'msp','mst'),temp_flag = 'f' where section = ? and status = 'i' and model is null"; // x stands for Data Found
+
 }
