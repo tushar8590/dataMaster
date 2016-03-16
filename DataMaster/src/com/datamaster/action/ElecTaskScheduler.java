@@ -16,9 +16,10 @@ public class ElecTaskScheduler extends ActionSupport implements ServletRequestAw
     private ELectronicsDataDao elecDao;
     
     public String execute(){
-        //elecDao = new ELectronicsDataDao();
+        ElectronicsQuartzJobScheduler jobSch  =  new ElectronicsQuartzJobScheduler();
+
+        elecDao = new ELectronicsDataDao();
         if(request.getParameter("choice").equals("edu")){
-            ElectronicsQuartzJobScheduler jobSch  =  new ElectronicsQuartzJobScheduler();
             try {
                 
                 elecDao.initiateJob("electronicsDataUpdate");
