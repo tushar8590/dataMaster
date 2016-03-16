@@ -76,7 +76,7 @@
                  <td><label class="choice" for="others">Select category </label> </td>
                </tr>
                <tr>
-            	  <td><s:select list="categoryList"  multiple="true"  width="400px"   class="element" name="catSelected"></s:select></td>     
+            	  <td><s:select list="categoryList"  multiple="true"  width="400px" style="height:500px"  class="element" name="catSelected"></s:select></td>     
                </tr>
                <tr><td><input id="saveForm" class="button_text" type="submit" name="submit" value="Start Task" /></td></tr>
             </table>
