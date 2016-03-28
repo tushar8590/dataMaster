@@ -19,7 +19,7 @@ import com.datamaster.dao.SQLQueries;
 
 public class FillMSPProductURlColumns {
 
-	private static String host = "jdbc:mysql://localhost:3306/aapcompare_test";
+	private static String host = "jdbc:mysql://localhost:3306/aapcompare";
 	private static String userName = "root";
 	private static String password = "";
 
@@ -45,7 +45,7 @@ public class FillMSPProductURlColumns {
 			e.printStackTrace();
 		}
 		try {
-			String query ="SELECT DISTINCT main_menu, menu_level1, menu_level2 FROM new_menu ";
+			String query ="SELECT DISTINCT menu_level1, menu_level2, section FROM new_menu ";
 
 			String sectionQuery ="SELECT DISTINCT section FROM msp_product_url WHERE STATUS = 'i'";
 
@@ -60,41 +60,11 @@ public class FillMSPProductURlColumns {
 			while(rs.next())
 			{
 				try {
-					String menu_level1 =rs.getString("main_menu");
+					String menu_level1 =rs.getString("menu_level1");
 
-					String menu_level2 =rs.getString("menu_level1");
-					String section =rs.getString("menu_level2");
+					String menu_level2 =rs.getString("menu_level2");
+					String section =rs.getString("section");
 
-					if(section.equals("Choppers and Blenders")){
-						section = "Choppers & Blenders";
-					}else if(section.equals("Car Cradles and Mounts")){
-						section ="Car Cradles & Mounts";
-					}else if(section.equals("Repeaters and Extenders")){
-						section ="Repeaters & Extenders";
-					}else if(section.equals("Video and DVD Players")){
-						section ="Video & DVD Players";
-					}else if(section.equals("Processor Fans and Cooling")){
-						section ="Processor Fans & Cooling";
-					}else if(section.equals("Power Banks")){
-						section ="Power Banks";
-					}else if(section.equals("Antennas and Amplifiers")){
-						section ="Antennas & Amplifiers";
-					}else if(section.equals("Camera Mounts and Clamps")){
-						section ="Camera Mounts & Clamps";
-					}else if(section.equals("Diffusers and Modifiers")){
-						section ="Diffusers & Modifiers";
-					}else if(section.equals("Adapters and Converters")){
-						section ="Adapters & Converters";
-					}else if(section.equals("Camera and Camcorder Batteries")){
-						section ="Camera & Camcorder Batteries";
-					}else if(section.equals("Inverters and Batteries")){
-						section ="Inverters & Batteries";
-					}else if(section.equals("Laptop Chargers and Adapters")){
-						section ="Laptop Chargers & Adapters";
-					}else if(section.equals("Lens Cleaners and Kits")){
-						section ="Lens Cleaners & Kits";
-					}
-					
 					columnMappingMap.put(section, menu_level1+"*"+menu_level2);
 
 

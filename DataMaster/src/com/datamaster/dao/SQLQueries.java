@@ -81,7 +81,7 @@ public class SQLQueries {
 	 // MSP related queries
 	   // Tushar 
 	   // 1sth October 2015
-	   public static String  insertMspProductUrl = "insert into msp_product_url(product_id,url,section,status) values(concat(?,LAST_INSERT_ID() + 1),?,?,?)";
+	   public static String  insertMspProductUrl = "insert into msp_product_url(product_id,url,section,status,temp_flag) values(concat(?,LAST_INSERT_ID() + 1),?,?,?,?)";
 	   public static String insertElectronicData = "insert into sp_electronics(model,price,url,image_url,section,mapped_flag) values()";
 	   public static String getMspUrls  = "SELECT * FROM `msp_product_url` -- where temp_flag = 'N' "; 
 	   public static String insertMspProductData = "insert into msp_electronics(product_id,section,model,url,price,image,cod,delivery_time,rating,emi_avaliable,temp_flag) values (?,?,?,?,?,?,?,?,?,?,'X')";
@@ -102,5 +102,6 @@ public class SQLQueries {
 	public static String insertJobDetail = "insert into job_map(job_name,job_status,date_triggered,completion_status) values(?,?,?,?)";
 	public static String getCategories  = "SELECT DISTINCT section  FROM new_menu ORDER BY section";
 	   public static String updateMSPProductTableColumns = "update msp_product_url set model = SUBSTRING_INDEX(url,'/',-1),menu_level1 = ?,menu_level2 = ?,spec_url = REPLACE(REPLACE(CONCAT('http://www.mysmartprice.com/product/',SUBSTRING_INDEX(url,'/',-2),'-other#tab_spec'),'msf','mst'),'msp','mst'),temp_flag = 'f' where section = ? and status = 'i' and model is null"; // x stands for Data Found
+	   
 
 }

@@ -22,8 +22,8 @@ public class ElecTaskScheduler extends ActionSupport implements ServletRequestAw
         String arr[] = request.getParameterValues("catSelected");
         if(request.getParameter("choice").equals("edu")){
             
-                elecDao.initiateJob("electronicsDataUpdate");
-                jobSch.startJob("demoJob",arr);            
+               // elecDao.initiateJob("electronicsDataUpdate");
+                jobSch.startJob("mspCatExtractor",arr);            
                 setMessage("Running Data Update Job");
                 return "electronicsDataUpdate";
         }

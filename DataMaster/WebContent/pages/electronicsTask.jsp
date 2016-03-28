@@ -59,10 +59,17 @@
          <div id = "tabs-2">
          <form id="form_1089583" class="appnitro"  method="post" action="elecTaskScheduler">
             <p>
-             <input id="choice" name="choice" class="element radio" type="radio" value="edu" />
-	         <label class="choice" for="electronics">Electronics Data Update</label>
-	         <input id="saveForm" class="button_text" type="submit" name="submit" value="Start Task" />
-	       </p>
+            <table>
+               <tr>
+                 <td><input id="choice" name="choice" class="element radio" value="edu" type = "hidden" /> </td>
+	         <td><label class="choice" for="others">Select category </label> </td>
+               </tr>
+               <tr>
+            	  <td><s:select list="categoryList"  multiple="true"  width="400px" style="height:500px"  class="element" name="catSelected"></s:select></td>     
+               </tr>
+               <tr><td><input id="saveForm" class="button_text" type="submit" name="submit" value="Start Task" /></td></tr>
+            </table>
+	      
           </form>	
          </div>
 			

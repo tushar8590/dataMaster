@@ -1,6 +1,7 @@
 package com.datamaster.scheduler.jobs;
 
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 
+import com.datamaster.bl.MSPCatDataExtractor;
 import com.datamaster.bl.MSPUrlExtractor;
 
 public class ElectronicsQuartzJobScheduler {
@@ -31,11 +33,11 @@ public class ElectronicsQuartzJobScheduler {
     	JobDetail urlExtJob = JobBuilder.newJob(MSPUrlExtractor.class)
                 .withIdentity("urlExtractorJob", "group1").build();
     	
-    	JobDetail demoJob = JobBuilder.newJob(DemoJob.class)
-                .withIdentity("demoJob", "group1").build();
+    	JobDetail demoJob = JobBuilder.newJob(MSPCatDataExtractor.class)
+                .withIdentity("mspCatExtractor", "group1").build();
     	
     	jobMap.put("mspUrlExtractorJob",urlExtJob);
-    	jobMap.put("demoJob",demoJob);
+    	jobMap.put("mspCatExtractor",demoJob);
 
     }
     
@@ -43,21 +45,22 @@ public class ElectronicsQuartzJobScheduler {
      // simple trigger
         Trigger trigger = TriggerBuilder
             .newTrigger()
-            .withIdentity("dummyTriggerName", "group1")
+            .withIdentity("dummyTriggerName"+job.getKey().toString(), "group1")
             .withSchedule(
-                CronScheduleBuilder.cronSchedule("0/0 * * * * ?"))
+                CronScheduleBuilder.cronSchedule("0 32 18 * * ? 2016"))
             .build();
         
-        /*SimpleTrigger trigger = (SimpleTrigger) newTrigger() 
-        	    .withIdentity("trigger1", "group1")
-        	    .startAt(myStartTime) // some Date 
-        	    .forJob("job1", "group1") // identify job with name, group strings
-        	    .build();*/
+       
+        SimpleTrigger trigger2 = (SimpleTrigger) TriggerBuilder.newTrigger() 
+        	    .withIdentity("trigger2"+job.getKey().toString().split("\\.")[1])
+        	    .startAt(new Date())// some Date 
+        	    .build();
+        
    // schedule it
         Thread.sleep(2000);
                         Scheduler scheduler = new StdSchedulerFactory().getScheduler();
                         scheduler.start();
-                        scheduler.scheduleJob(job, trigger);
+                        scheduler.scheduleJob(job, trigger2);
 
                      
     }

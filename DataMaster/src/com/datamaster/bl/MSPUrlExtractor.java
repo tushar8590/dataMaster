@@ -213,6 +213,7 @@ public class MSPUrlExtractor implements Job{
             params.add(url);
             params.add(section);
             params.add("i");
+            params.add("f");
             conn.upsertData(query, params);
             params.clear();
             // System.out.println(url+" "+ section);
