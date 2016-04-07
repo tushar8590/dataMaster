@@ -19,7 +19,7 @@ import com.datamaster.dao.SQLQueries;
 
 public class FillMSPProductURlColumns {
 
-	private static String host = "jdbc:mysql://localhost:3306/aapcompare";
+	private static String host = "jdbc:mysql://localhost:3306/aapcompare_test";
 	private static String userName = "root";
 	private static String password = "";
 
@@ -64,7 +64,7 @@ public class FillMSPProductURlColumns {
 
 					String menu_level2 =rs.getString("menu_level2");
 					String section =rs.getString("section");
-
+System.out.println(section+" ---- "+menu_level1+"  ----  "+menu_level2);
 					columnMappingMap.put(section, menu_level1+"*"+menu_level2);
 
 
@@ -82,7 +82,7 @@ public class FillMSPProductURlColumns {
 			while(rs.next())
 			{
 				String section = rs.getString("section");
-
+				System.out.println(section);
 				if(columnMappingMap.containsKey(section)){
 					String value = columnMappingMap.get(section);
 					String[] parts = value.split("\\*");
